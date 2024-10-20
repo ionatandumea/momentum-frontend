@@ -1,37 +1,45 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Tabs } from "expo-router";
+import { TabScreenConfig } from "@/types";
+import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const tabs: TabScreenConfig[] = [
+    { name: "index", title: "Home", icon: "home" },
+    { name: "plan", title: "Plan", icon: "calendar" },
+    { name: "stats", title: "Stats", icon: "bar-chart" },
+    { name: "settings", title: "Settings", icon: "settings" },
+];
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+export default function TabsLayout() {
+    return (
+        <Tabs
+            screenOptions={{
+                tabBarStyle: {
+                    backgroundColor: "#f0f0f0",
+                },
+                tabBarActiveTintColor: "#007bff",
+                tabBarInactiveTintColor: "#8e8e8e",
+                tabBarLabelStyle: {
+                    fontSize: 12,
+                },
+            }}
+        >
+            {tabs.map((tab) => (
+                <Tabs.Screen
+                    key={tab.name}
+                    name={tab.name}
+                    options={{
+                        title: tab.title,
+                        headerShown: tab.headerShown ?? false,
+                        tabBarIcon: ({ color, size }) => (
+                                <TabBarIcon
+                                        name={tab.icon}
+                                        size={size}
+                                        color={color}
+                                />
+                        ),
+                    }}
+                />
+            ))}
+        </Tabs>
+    );
 }
