@@ -9,20 +9,20 @@ const tabs: TabScreenConfig[] = [
     { name: "settings", title: "Settings", icon: "settings" },
 ];
 
+const tabOptions = {
+    tabBarStyle: {
+        backgroundColor: "#f0f0f0",
+    },
+    tabBarActiveTintColor: "#007bff",
+    tabBarInactiveTintColor: "#8e8e8e",
+    tabBarLabelStyle: {
+        fontSize: 12,
+    },
+}
+
 export default function TabsLayout() {
     return (
-        <Tabs
-            screenOptions={{
-                tabBarStyle: {
-                    backgroundColor: "#f0f0f0",
-                },
-                tabBarActiveTintColor: "#007bff",
-                tabBarInactiveTintColor: "#8e8e8e",
-                tabBarLabelStyle: {
-                    fontSize: 12,
-                },
-            }}
-        >
+        <Tabs screenOptions={tabOptions} >
             {tabs.map((tab) => (
                 <Tabs.Screen
                     key={tab.name}
@@ -32,9 +32,9 @@ export default function TabsLayout() {
                         headerShown: tab.headerShown ?? false,
                         tabBarIcon: ({ color, size }) => (
                                 <TabBarIcon
-                                        name={tab.icon}
-                                        size={size}
-                                        color={color}
+                                    name={tab.icon}
+                                    size={size}
+                                    color={color}
                                 />
                         ),
                     }}
